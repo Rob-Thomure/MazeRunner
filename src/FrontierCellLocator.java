@@ -12,7 +12,8 @@ public class FrontierCellLocator {
     }
 
     public List<FrontierCell> findNewFrontierCells() {
-        return getFrontierCellCandidates().stream()
+        return getFrontierCellCandidates()
+                .stream()
                 .filter(isWithinGrid)
                 .filter(isBlockedCell)
                 .toList();
@@ -35,7 +36,7 @@ public class FrontierCellLocator {
         FrontierCell thirdFrontierCell = new FrontierCell(thirdFrontierCellCoords, thirdConnectingCellCoords);
 
         Coordinates fourthFrontierCellCoords = new Coordinates(row, column - 2);
-        Coordinates fourthConnectingCellCoords = new Coordinates(row, column - 2);
+        Coordinates fourthConnectingCellCoords = new Coordinates(row, column - 1);
         FrontierCell fourthFrontierCell = new FrontierCell(fourthFrontierCellCoords, fourthConnectingCellCoords);
 
         frontierCellCandidates.add(firstFrontierCell);
@@ -46,20 +47,22 @@ public class FrontierCellLocator {
         return frontierCellCandidates;
     }
 
+
+
     private final Predicate<FrontierCell> rowIsNotFirstRow =
-            frontierCell -> frontierCell.getFrontierCellCoordinates().getRow() != 0;
+            frontierCell -> frontierCell.getFrontierCellCoordinates().getRow() > 0;
 
     private final Predicate<FrontierCell> rowIsNotLastRow =
-            frontierCell -> frontierCell.getFrontierCellCoordinates().getRow() != mazeGrid.length - 1;
+            frontierCell -> frontierCell.getFrontierCellCoordinates().getRow() < mazeGrid.length - 1;
 
     private final Predicate<FrontierCell> rowIsNotFirstOrLast =
             frontierCell -> rowIsNotFirstRow.and(rowIsNotLastRow).test(frontierCell);
 
     private final Predicate<FrontierCell> columnIsNotFirst =
-            frontierCell -> frontierCell.getFrontierCellCoordinates().getColumn() != 0;
+            frontierCell -> frontierCell.getFrontierCellCoordinates().getColumn() > 0;
 
     private final Predicate<FrontierCell> columnIsNotLast =
-            frontierCell -> frontierCell.getFrontierCellCoordinates().getColumn() != mazeGrid[0].length;
+            frontierCell -> frontierCell.getFrontierCellCoordinates().getColumn() < mazeGrid[0].length - 1;
 
     private final Predicate<FrontierCell> columnIsNotFirstOrLast =
             frontierCell -> columnIsNotFirst.and(columnIsNotLast).test(frontierCell);

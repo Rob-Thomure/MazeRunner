@@ -1,28 +1,27 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class FrontierCells {
-    private final List<FrontierCell> frontierCellList;
+    private final Set<FrontierCell> frontierCellSet;
 
     public FrontierCells() {
-        this.frontierCellList = new ArrayList<>();
+        this.frontierCellSet = new HashSet<>();
     }
 
     public void addFrontierCells(List<FrontierCell> frontierCells) {
-        this.frontierCellList.addAll(frontierCells);
+        this.frontierCellSet.addAll(frontierCells);
     }
 
     public void removeFrontierCell(FrontierCell frontierCell) {
-        frontierCellList.remove(frontierCell);
+        frontierCellSet.remove(frontierCell);
     }
 
     public FrontierCell getRandomFrontierCell() {
         Random random = new Random();
-        return frontierCellList.get(random.nextInt(frontierCellList.size()));
+        List<FrontierCell> frontierCellList = frontierCellSet.stream().toList();
+        return frontierCellList.get(random.nextInt(frontierCellSet.size()));
     }
 
     public boolean hasFrontierCells() {
-        return !frontierCellList.isEmpty();
+        return !frontierCellSet.isEmpty();
     }
 }
