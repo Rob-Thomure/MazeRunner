@@ -1,3 +1,3 @@
 public enum LayoutState {
-    BLOCKED, PASSAGE
+    BLOCKED, PASSAGE, TRAVELED
 }

@@ -36,7 +36,18 @@ public class MazeRunnerMenu {
             case 4:
                 printMaze();
                 break;
+            case 5:
+                solveMaze();
+                break;
         }
+    }
+
+    private void solveMaze() {
+        MazeSolver mazeSolver = new MazeSolver(mazeGrid);
+        Cell[][] solvedMaze = mazeSolver.getSolvedMaze();
+        MazeFormatter mazeFormatter= new MazeFormatter();
+        String formattedMaze = mazeFormatter.formatMaze(solvedMaze);
+        System.out.println(formattedMaze);
     }
 
     private void saveMaze() {
@@ -114,10 +125,11 @@ public class MazeRunnerMenu {
                     "2. Load a maze\n" +
                     "3. Save the maze\n" +
                     "4. Display the maze\n" +
+                    "5. Find the escape\n" +
                     "0. Exit");
             Scanner scanner = new Scanner(System.in);
             input = scanner.next();
-            if (input.matches("[0-4]")) {
+            if (input.matches("[0-5]")) {
                 validOption = true;
             } else {
                 System.out.println("Incorrect option. Please try again.");

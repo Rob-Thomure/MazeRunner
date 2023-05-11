@@ -1,3 +1,4 @@
+
 public class Cell {
     LayoutState state;
 
@@ -8,6 +9,10 @@ public class Cell {
 
     public void setStatePassage() {
         this.state = LayoutState.PASSAGE;
+    }
+
+    public void setStateTraveled() {
+        this.state = LayoutState.TRAVELED;
     }
 
     public LayoutState getState() {
